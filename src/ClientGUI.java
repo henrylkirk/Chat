@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /*
  * ClientGUI
@@ -25,14 +27,17 @@ public class ClientGUI extends JFrame {
         JPanel jpNorth = new JPanel();
         jpNorth.setPreferredSize(new Dimension(500, 50));
         JButton jbDisconnect = new JButton("Disconnect");
-        jbDisconnect.addActionListener(e -> {
-            // send disconnect Message when clicked
-            client.sendMessage(new Message(Message.DISCONNECT, null));
-            client.disconnect();
-            System.exit(0);
+        jbDisconnect.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // send disconnect Message when clicked
+                client.sendMessage(new Message(Message.DISCONNECT, null));
+                client.disconnect();
+                System.exit(0);
+            }
         });
-        // Add JButton to JPanel
-        jpNorth.add(jbDisconnect);
+                // Add JButton to JPanel
+                jpNorth.add(jbDisconnect);
         // Add JPanel to JFrame
         add(jpNorth,BorderLayout.NORTH);
 
@@ -48,11 +53,14 @@ public class ClientGUI extends JFrame {
         jpSouth.setPreferredSize(new Dimension(500, 50));
         JButton jbSend = new JButton("Send");
         // Add action listener to get client message
-        jbSend.addActionListener(e -> {
-            if(isConnected) {
-                // send message
-                client.sendMessage(new Message(Message.MESSAGE, tfMessage.getText()));
-                tfMessage.setText("");
+        jbSend.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(isConnected) {
+                    // send message
+                    client.sendMessage(new Message(Message.MESSAGE, tfMessage.getText()));
+                    tfMessage.setText("");
+                }
             }
         });
         jpSouth.add(jbSend);
