@@ -5,7 +5,7 @@ import java.awt.event.*;
 /*
  * ServerGUI
  */
-public class ServerGUI extends JFrame implements WindowListener {
+public class ServerGUI extends JFrame implements WindowListener, ActionListener {
 
     // JTextArea for eventLog
     private JTextArea eventLog;
@@ -27,7 +27,7 @@ public class ServerGUI extends JFrame implements WindowListener {
 		jpNorth.add(tfPort);
 		jbStartStop = new JButton("Start Server");
 		// add event listener to stop/start Server on click
-		jbStartStop.addActionListener(this::actionPerformed);
+		jbStartStop.addActionListener(this);
 
 		jpNorth.add(jbStartStop);
 		add(jpNorth, BorderLayout.NORTH);
