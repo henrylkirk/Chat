@@ -50,13 +50,15 @@ public class Client  {
 		// creates the Thread to listen from the server
 		new ListenFromServer().start();
 		// Send Client's username to the server
-		try {
-			sOutput.writeObject(username);
-		} catch (IOException eIO) {
-			gui.displayMessage("Exception IO: " + eIO);
-			disconnect();
-			return false;
-		}
+//		try {
+//			sOutput.writeObject(username);
+			sendMessage(new Message(Message.USERNAME, username));
+//		}
+//		catch (IOException eIO) {
+//			gui.displayMessage("Exception IO: " + eIO);
+//			disconnect();
+//			return false;
+//		}
 		// success
 		return true;
 	}

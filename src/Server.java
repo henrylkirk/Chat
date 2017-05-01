@@ -118,7 +118,7 @@ public class Server {
 		Socket socket;
 		ObjectInputStream sInput;
 		ObjectOutputStream sOutput;
-		// the type of message received (DISCONNECT/MESSAGE)
+		// the type of message received (DISCONNECT/MESSAGE/USERNAME)
 		Message msgObj;
 
 		// Constructor
@@ -130,7 +130,8 @@ public class Server {
 				sOutput = new ObjectOutputStream(socket.getOutputStream());
 				sInput  = new ObjectInputStream(socket.getInputStream());
 				// read Client's username
-				username = (String) sInput.readObject();
+				msgObj = (Message) sInput.readObject();
+				username = msgObj.getContent();
 				gui.displayEvent(username + " connected using (insert protocol here)");
 			} catch (IOException e) {
 				gui.displayEvent("Exception IO: " + e);
