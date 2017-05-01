@@ -27,29 +27,7 @@ public class ServerGUI extends JFrame implements WindowListener {
 		jpNorth.add(tfPort);
 		jbStartStop = new JButton("Start Server");
 		// add event listener to stop/start Server on click
-		jbStartStop.addActionListener(e -> {
-			// if Server already running, stop it
-			if(server != null) {
-				server.stop();
-				server = null;
-				tfPort.setEditable(true);
-				jbStartStop.setText("Start Server");
-				return;
-			}
-			// otherwise start Server
-			int port;
-			try {
-				port = Integer.parseInt(tfPort.getText().trim());
-			} catch(Exception ex) {
-				displayEvent("Invalid port");
-				return;
-			}
-			// create and start new Server
-			server = new Server(port, this);
-			new RunServer().start();
-			jbStartStop.setText("Stop Server");
-			tfPort.setEditable(false);
-		});
+		jbStartStop.addActionListener(this::actionPerformed);
 
 		jpNorth.add(jbStartStop);
 		add(jpNorth, BorderLayout.NORTH);
@@ -110,6 +88,33 @@ public class ServerGUI extends JFrame implements WindowListener {
 			server = null;
 		}
 	}
+
+	/*
+	 * jbStartStop was clicked, so start/stop Server
+	 */
+	public void actionPerformed(ActionEvent e){
+        // if Server already running, stop it
+        if(server != null) {
+            server.stop();
+            server = null;
+            tfPort.setEditable(true);
+            jbStartStop.setText("Start Server");
+            return;
+        }
+        // otherwise start Server
+        int port;
+        try {
+            port = Integer.parseInt(tfPort.getText().trim());
+        } catch(Exception ex) {
+            displayEvent("Invalid port");
+            return;
+        }
+        // create and start new Server
+        server = new Server(port, this);
+        new RunServer().start();
+        jbStartStop.setText("Stop Server");
+        tfPort.setEditable(false);
+    }
 
     /*
      * Main class, creates ServerGUI (which creates Server)
