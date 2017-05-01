@@ -14,14 +14,16 @@ public class Client  {
 	// the host server, the port, and the username
 	private String host, username;
 	private int port;
+	private String protocol;
 
 	/*
 	 * Constructor
 	 */
-	Client(String host, int port, String username, ClientGUI gui) {
+	Client(String host, int port, String username, String protocol, ClientGUI gui) {
 		this.host = host;
 		this.port = port;
 		this.username = username;
+        this.protocol = protocol;
 		this.gui = gui;
 	}
 
@@ -50,15 +52,7 @@ public class Client  {
 		// creates the Thread to listen from the server
 		new ListenFromServer().start();
 		// Send Client's username to the server
-//		try {
-//			sOutput.writeObject(username);
-			sendMessage(new Message(Message.USERNAME, username));
-//		}
-//		catch (IOException eIO) {
-//			gui.displayMessage("Exception IO: " + eIO);
-//			disconnect();
-//			return false;
-//		}
+        sendMessage(new Message(Message.USERNAME, username));
 		// success
 		return true;
 	}

@@ -79,7 +79,7 @@ public class ClientGUI extends JFrame {
         setVisible(true);
 
         // Create a new client with this GUI
-        client = new Client(this.host, this.port, this.username, this);
+        client = new Client(this.host, this.port, this.username, this.protocol, this);
         if(client.start()){
             isConnected = true;
         }
