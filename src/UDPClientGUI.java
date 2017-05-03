@@ -19,9 +19,8 @@ public class UDPClientGUI extends JFrame {
 
 	// Constructor connection receiving a socket number
 	UDPClientGUI(UDPClient newClient) {
-		// Prompt for user input
+		//create the UDPClient 
 		final UDPClient client = newClient;
-		System.out.println("UDPClient made!");
         // NORTH
         // Create JButton to disconnect from server and quit program
         JPanel jpNorth = new JPanel();
@@ -59,7 +58,6 @@ public class UDPClientGUI extends JFrame {
                 if(isConnected) {
                     // send message
                     client.sendMessage(new Message(Message.MESSAGE, tfMessage.getText()));
-					System.out.println("message sent");
                     tfMessage.setText("");
                 }
             }

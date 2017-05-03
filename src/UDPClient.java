@@ -23,13 +23,15 @@ public class UDPClient {
 	}
 
 	
+	/*
+	 * Starts the server and creates Datagram Socket so the messages can be sent.
+	 */
 	public void start() {
 		
 		this.gui = new UDPClientGUI(this);
 		
 		try { 
 			dSocket = new DatagramSocket();
-			System.out.println("Client Socket made");
 		}catch (Exception e) {
 			gui.displayMessage("Error");
 		}
@@ -39,31 +41,45 @@ public class UDPClient {
 		
 		
 	}
-
+	
+	/*
+	 * Sends message in the form of a packet to the UDP Server. 
+	 */
 	public void sendMessage(Message msg) {
-		if(msg.getType() == 2){
-			this.disconnect();
-			return;
-		}
+		
 		try {
-			String message = msg.getContent();
-			byte[] data = message.getBytes();
-			InetAddress addr = InetAddress.getByName(host);
-			DatagramPacket pack = new DatagramPacket(data, data.length, addr, port);
-			System.out.println(addr + " " + port);
-			try{
-				dSocket.send(pack);
-			}catch(PortUnreachableException e){
-				gui.displayMessage("Exception2");
+			if(msg.getType() == 0){
+				
+				String message = msg.getContent();
+				byte[] data = message.getBytes();
+				InetAddress addr = InetAddress.getByName(host);
+				DatagramPacket pack = new DatagramPacket(data, data.length, addr, port);
+				System.out.println(addr + " " + port);
+				
+				try{
+					// Displays message on the current users gui.
+					gui.displayMessage("Sending....");
+					gui.displayMessage("Current User: " + message);
+					dSocket.send(pack);
+				}catch(PortUnreachableException e){
+					gui.displayMessage("Exception2");
+				}
+				//if message type = disconnect, then disconnect.
+			}else if(msg.getType() == 1){
+				disconnect();
 			}
-			gui.displayMessage(message);
+			
 		}
 		catch(IOException e) {
 			gui.displayMessage("Exception writing to server: " + e);
 		}
 	}
 	
+	/*
+	 * Closes Datagram Socket.
+	 */
 	public void disconnect() {
+		gui.displayMessage("Disconnecting");
 		dSocket.close();
 	}
 

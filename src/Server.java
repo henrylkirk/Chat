@@ -89,7 +89,7 @@ public class Server {
 	/*
 	 * Broadcast a message to all Clients
 	 */
-	private synchronized void broadcast(String message) {
+	public synchronized void broadcast(String message) {
 		// display message in ServerGUI
 		gui.displayEvent(message);
 
@@ -120,7 +120,7 @@ public class Server {
 	/*
 	 * Create thread for each Client
 	 */
-	class ClientThread extends Thread {
+	public class ClientThread extends Thread {
 		int id;
 		String username;
 		Socket socket;

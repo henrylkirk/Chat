@@ -50,6 +50,13 @@ public class ServerGUI extends JFrame implements WindowListener, ActionListener 
 	}		
 
 	/*
+	 * Receives the full message from the UDPServer and 
+	 * is then sent to the full Server for broadcast to full list of clients
+	 */
+	public void serverBroadcast(String message){
+		server.broadcast(message);
+	}
+	/*
 	 * Display message/event in eventLog
 	 */
 	public void displayEvent(String msg) {
@@ -94,9 +101,13 @@ public class ServerGUI extends JFrame implements WindowListener, ActionListener 
 			jbStartStop.setText("Start Server");
 			tfPort.setEditable(true);
 			server = null;
+			udpServer = null;
 		}
 	}
 	
+	/* 
+	 * A thread to run the UDP Server
+	 */
 	class RunUDPServer extends Thread { 
 		public void run(){
 			udpServer.start();
@@ -111,9 +122,9 @@ public class ServerGUI extends JFrame implements WindowListener, ActionListener 
         // if Server already running, stop it
         if(server != null) {
             server.stop();
+            server = null;
 			udpServer.stop();
 			udpServer = null;
-            server = null;
             tfPort.setEditable(true);
             jbStartStop.setText("Start Server");
             return;
@@ -126,7 +137,7 @@ public class ServerGUI extends JFrame implements WindowListener, ActionListener 
             displayEvent("Invalid port");
             return;
         }
-        // create and start new Server
+        // create and start new Server and new UDP Server
         server = new Server(port, this);
 		udpServer = new UDPServer(port, this);
 		new RunUDPServer().start();
@@ -135,6 +146,8 @@ public class ServerGUI extends JFrame implements WindowListener, ActionListener 
         jbStartStop.setText("Stop Server");
         tfPort.setEditable(false);
     }
+	
+	
 
     /*
      * Main class, creates ServerGUI (which creates Server)

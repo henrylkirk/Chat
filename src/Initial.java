@@ -4,31 +4,36 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 
-
+/*
+ * Prompts the user for input using a simple gui. User input is used to create the specific kind of client required.
+ */
 public class Initial extends JFrame{
 	private String host, username;
 	private int port;
 	private String protocol;
 	private boolean isConnected = true;
+	private String curProtocol;
 	
 	public static void main(String[] args) {
 		Initial initial = new Initial();
 	}
-	
+	//Constructor simply calls the prompt method to begin accepting user input
 	Initial(){
 		prompt();
 	}
 	public void prompt(){
 		
-
+		//Prompt user for input
         JTextField inputName = new JTextField();
-        JTextField inputProtocol = new JTextField("TCP");
-        JTextField inputHost = new JTextField("localhost");
+		String[] protocols = {"TCP", "UDP"};
+        JComboBox<String> protocolList = new JComboBox<String>(protocols);
+		protocolList.setEditable(false);
+        JTextField inputHost = new JTextField();
         JTextField inputPort = new JTextField("1678");
         Object[] inputMessages = {
                 "Enter Your name:", inputName,
-                "TCP or UDP:", inputProtocol,
                 "Enter host:", inputHost,
+				"Choose Protocol", protocolList,
                 "Enter Port:", inputPort
         };
         int option = JOptionPane.showConfirmDialog(null, inputMessages, "Enter all your values", JOptionPane.OK_CANCEL_OPTION);
@@ -40,7 +45,12 @@ public class Initial extends JFrame{
                 this.username = inputName.getText().trim();
             }
             // check valid protocol input
-            if(inputProtocol.getText().trim().length() == 0 || inputProtocol.getText().charAt(0) == 'T'){
+			try{
+				curProtocol = (String) protocolList.getSelectedItem();
+			}catch(Exception e){
+				System.out.println("Bad things");
+			}
+            if(curProtocol.equals("TCP")){
                 this.protocol = "TCP";
             } else {
                 this.protocol = "UDP";	
@@ -64,6 +74,7 @@ public class Initial extends JFrame{
                 this.port = 1678; // set to default port
             }
         }
+		// determines what client to create using the user input and the protocol value.
 		if(this.protocol.equals("TCP")){
 			Client client = new Client(this.host, this.port, this.username, this.protocol);
 			if(client.start()){
