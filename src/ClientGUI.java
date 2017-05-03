@@ -36,8 +36,8 @@ public class ClientGUI extends JFrame {
                 System.exit(0);
             }
         });
-                // Add JButton to JPanel
-                jpNorth.add(jbDisconnect);
+        // Add JButton to JPanel
+        jpNorth.add(jbDisconnect);
         // Add JPanel to JFrame
         add(jpNorth,BorderLayout.NORTH);
 

@@ -36,7 +36,7 @@ public class Server {
 			// wait for Clients to connect
 			while(isRunning) {
 				// format message saying we are waiting
-				gui.displayEvent("Server listening for clients on port " + port);
+				gui.displayEvent("Server " + InetAddress.getLocalHost().getHostAddress() + " listening for clients on port " + port);
 				// accept client connections
 				Socket socket = serverSocket.accept();
 				// check if server should stop

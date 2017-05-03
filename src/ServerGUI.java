@@ -67,6 +67,7 @@ public class ServerGUI extends JFrame implements WindowListener, ActionListener 
 		}
 		System.exit(0);
 	}
+	// methods necessary for WindowListener
     public void windowClosed(WindowEvent e) {}
     public void windowOpened(WindowEvent e) {}
     public void windowIconified(WindowEvent e) {}
