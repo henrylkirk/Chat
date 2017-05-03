@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 /*
  * ClientGUI
  */
-public class ClientGUI extends JFrame {
+public class TCPClientGUI extends JFrame {
 
 	// to hold the Username and later on the messages
 	private JTextField tfMessage;
@@ -18,8 +18,8 @@ public class ClientGUI extends JFrame {
 	private int port;
 
 	// Constructor connection receiving a socket number
-	ClientGUI(Client newClient) {
-		final Client client = newClient;
+	TCPClientGUI(TCPClient newClient) {
+		final TCPClient client = newClient;
         // NORTH
         // Create JButton to disconnect from server and quit program
         JPanel jpNorth = new JPanel();

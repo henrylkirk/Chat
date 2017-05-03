@@ -7,19 +7,16 @@ public class UDPClient {
 	private DatagramSocket dSocket;
 	private UDPClientGUI gui;
 	// the host server, the port, and the username
-	private String host, username;
+	public String host, username;
 	private int port;
-	private String protocol;
 
 	/*
 	 * Constructor
 	 */
-	UDPClient(String host, int port, String username, String protocol) {
+	UDPClient(String host, int port, String username) {
 		this.host = host;
 		this.port = port;
 		this.username = username;
-        this.protocol = protocol;
-		
 	}
 
 	
@@ -59,7 +56,7 @@ public class UDPClient {
 				try{
 					// Displays message on the current users gui.
 					gui.displayMessage("Sending....");
-					gui.displayMessage("Current User: " + message);
+					gui.displayMessage(username + ": " + message);
 					dSocket.send(pack);
 				}catch(PortUnreachableException e){
 					gui.displayMessage("Exception2");
