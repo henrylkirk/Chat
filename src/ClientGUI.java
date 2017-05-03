@@ -13,15 +13,13 @@ public class ClientGUI extends JFrame {
 	// to display messages
 	private JTextArea chatRoom;
 	private boolean isConnected = true;
-	private Client client;
+	
 	private String username, protocol, host;
 	private int port;
 
 	// Constructor connection receiving a socket number
-	ClientGUI() {
-		// Prompt for user input
-		showDialog();
-
+	ClientGUI(Client newClient) {
+		final Client client = newClient;
         // NORTH
         // Create JButton to disconnect from server and quit program
         JPanel jpNorth = new JPanel();
@@ -86,11 +84,7 @@ public class ClientGUI extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
 
-        // Create a new client with this GUI
-        client = new Client(this.host, this.port, this.username, this.protocol, this);
-        if(client.start()){
-            isConnected = true;
-        }
+		
 	}
 
 	// Add message to GUI's chatRoom
@@ -104,54 +98,5 @@ public class ClientGUI extends JFrame {
 	}
 
 	// Show dialog - get client input
-	private void showDialog(){
-        JTextField inputName = new JTextField();
-        JTextField inputProtocol = new JTextField("TCP");
-        JTextField inputHost = new JTextField("localhost");
-        JTextField inputPort = new JTextField("1678");
-        Object[] inputMessages = {
-                "Enter Your name:", inputName,
-                "TCP or UDP:", inputProtocol,
-                "Enter host:", inputHost,
-                "Enter Port:", inputPort
-        };
-        int option = JOptionPane.showConfirmDialog(null, inputMessages, "Enter all your values", JOptionPane.OK_CANCEL_OPTION);
-        if (option == JOptionPane.OK_OPTION){
-            // check valid username input
-            if(inputName.getText().trim().length() == 0){
-                this.username = "Anonymous";
-            } else {
-                this.username = inputName.getText().trim();
-            }
-            // check valid protocol input
-            if(inputProtocol.getText().trim().length() == 0 || inputProtocol.getText().charAt(0) == 'T'){
-                this.protocol = "TCP";
-            } else {
-                this.protocol = "UDP";
-            }
-            // check valid host input
-            if(inputHost.getText().trim().length() == 0){
-                this.host = "localhost";
-            } else {
-                this.host = inputHost.getText().trim();
-            }
-            // check not empty port input
-            if(inputPort.getText().trim().length() != 0){
-                // try to parse port input to int
-                try {
-                    this.port = Integer.parseInt(inputPort.getText().trim());
-                }
-                catch(Exception e) {
-                    System.out.println(e);
-                }
-            } else {
-                this.port = 1678; // set to default port
-            }
-        }
-	}
-
-	public static void main(String[] args) {
-		ClientGUI gui = new ClientGUI();
-	}
 
 }

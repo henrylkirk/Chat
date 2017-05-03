@@ -19,12 +19,12 @@ public class Client  {
 	/*
 	 * Constructor
 	 */
-	Client(String host, int port, String username, String protocol, ClientGUI gui) {
+	Client(String host, int port, String username, String protocol) {
 		this.host = host;
 		this.port = port;
 		this.username = username;
         this.protocol = protocol;
-		this.gui = gui;
+		
 	}
 
 	/*
@@ -32,6 +32,7 @@ public class Client  {
 	 */
 	public boolean start() {
 		// try to connect to server
+		this.gui = new ClientGUI(this);
 		try {
 			socket = new Socket(host, port);
 		} catch(Exception e) {
@@ -56,7 +57,9 @@ public class Client  {
 		// success
 		return true;
 	}
-
+	
+	
+	
 	/*
 	 * Send a message to Server
 	 */
@@ -66,6 +69,9 @@ public class Client  {
 		}
 		catch(IOException e) {
 			gui.displayMessage("Exception writing to server: " + e);
+		}
+		catch(NullPointerException e){
+			gui.displayMessage("Failure");
 		}
 	}
 

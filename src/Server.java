@@ -16,6 +16,8 @@ public class Server {
 	private int port;
 	// change this to false to stop server
 	private boolean isRunning;
+	private DatagramSocket dSocket;
+	private DatagramPacket packet;
 
 	// Constructor
 	public Server(int port, ServerGUI gui) {
@@ -32,7 +34,6 @@ public class Server {
 		try {
 			// create new ServerSocket using port
 			ServerSocket serverSocket = new ServerSocket(port);
-
 			// wait for Clients to connect
 			while(isRunning) {
 				// format message saying we are waiting

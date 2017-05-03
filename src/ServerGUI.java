@@ -15,6 +15,7 @@ public class ServerGUI extends JFrame implements WindowListener, ActionListener 
 	private JTextField tfPort;
 	private final int defaultPort = 1678;
 	private Server server = null;
+	private UDPServer udpServer = null;
 	
 	
 	// Constructor
@@ -65,6 +66,12 @@ public class ServerGUI extends JFrame implements WindowListener, ActionListener 
 			} catch(Exception eClose) {}
 			server = null;
 		}
+		if(udpServer != null) {
+			try {
+				udpServer.stop();
+			} catch(Exception eClose) {}
+			server = null;
+		}
 		System.exit(0);
 	}
     public void windowClosed(WindowEvent e) {}
@@ -81,12 +88,20 @@ public class ServerGUI extends JFrame implements WindowListener, ActionListener 
 		public void run() {
 		    // start Server
 			server.start();
+			
 			// the server failed
             displayEvent("Server stopped");
 			jbStartStop.setText("Start Server");
 			tfPort.setEditable(true);
 			server = null;
 		}
+	}
+	
+	class RunUDPServer extends Thread { 
+		public void run(){
+			udpServer.start();
+		}
+	
 	}
 
 	/*
@@ -96,6 +111,8 @@ public class ServerGUI extends JFrame implements WindowListener, ActionListener 
         // if Server already running, stop it
         if(server != null) {
             server.stop();
+			udpServer.stop();
+			udpServer = null;
             server = null;
             tfPort.setEditable(true);
             jbStartStop.setText("Start Server");
@@ -111,7 +128,10 @@ public class ServerGUI extends JFrame implements WindowListener, ActionListener 
         }
         // create and start new Server
         server = new Server(port, this);
+		udpServer = new UDPServer(port, this);
+		new RunUDPServer().start();
         new RunServer().start();
+		
         jbStartStop.setText("Stop Server");
         tfPort.setEditable(false);
     }
