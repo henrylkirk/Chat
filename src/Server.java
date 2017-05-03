@@ -16,14 +16,20 @@ public class Server {
 	private int port;
 	// change this to false to stop server
 	private boolean isRunning;
-	private DatagramSocket dSocket;
-	private DatagramPacket packet;
+	private String ip;
 
 	// Constructor
 	public Server(int port, ServerGUI gui) {
 		this.gui = gui;
 		this.port = port;
 		clientList = new ArrayList<>();
+		// Try to get Server's IP address for TCP Clients
+		try {
+			this.ip = InetAddress.getLocalHost().getHostAddress();
+		} catch(UnknownHostException e) {
+			this.ip = "localhost";
+			gui.displayEvent("Unknown host exception: " + e);
+		}
 	}
 
 	/*
@@ -34,10 +40,11 @@ public class Server {
 		try {
 			// create new ServerSocket using port
 			ServerSocket serverSocket = new ServerSocket(port);
+
 			// wait for Clients to connect
 			while(isRunning) {
 				// format message saying we are waiting
-				gui.displayEvent("Server listening for clients on port " + port);
+				gui.displayEvent("Server " + ip + " listening for clients on port " + port);
 				// accept client connections
 				Socket socket = serverSocket.accept();
 				// check if server should stop
@@ -69,7 +76,7 @@ public class Server {
 		}
 	}
 
-    /*
+	/*
      * Stop the Server
      */
 	public void stop() {
@@ -85,7 +92,7 @@ public class Server {
 	private synchronized void broadcast(String message) {
 		// display message in ServerGUI
 		gui.displayEvent(message);
-		
+
 		// Loop through clients, remove disconnected ones
 		for(int i = clientList.size(); --i >= 0;) {
 			ClientThread ct = clientList.get(i);
@@ -114,8 +121,8 @@ public class Server {
 	 * Create thread for each Client
 	 */
 	class ClientThread extends Thread {
-        int id;
-        String username;
+		int id;
+		String username;
 		Socket socket;
 		ObjectInputStream sInput;
 		ObjectOutputStream sOutput;
@@ -153,27 +160,27 @@ public class Server {
 					msgObj = (Message) sInput.readObject();
 				} catch (IOException e) {
 					gui.displayEvent(username + " Exception reading Streams: " + e);
-					break;				
+					break;
 				} catch(ClassNotFoundException e2) {
 					break;
 				}
 				String message = msgObj.getContent();
 
 				// find type of message
-                // if disconnect, disconnect
+				// if disconnect, disconnect
 				if(msgObj.getType() == Message.DISCONNECT){
-                    gui.displayEvent(username + " disconnected");
-                    isRunning = false;
-                } else { // normal message, so broadcast it
-                    broadcast(username + ": " + message);
-                }
+					gui.displayEvent(username + " disconnected");
+					isRunning = false;
+				} else { // normal message, so broadcast it
+					broadcast(username + ": " + message);
+				}
 			}
 			// remove this Client from clientList
 			removeClient(id);
 			close();
 		}
 
-        /*
+		/*
          * Try to close connection
          */
 		private void close() {
