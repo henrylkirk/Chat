@@ -16,12 +16,19 @@ public class Server {
 	private int port;
 	// change this to false to stop server
 	private boolean isRunning;
+	private String ip;
 
 	// Constructor
 	public Server(int port, ServerGUI gui) {
 		this.gui = gui;
 		this.port = port;
 		clientList = new ArrayList<>();
+		try {
+			this.ip = InetAddress.getLocalHost().getHostAddress();
+		} catch(UnknownHostException e) {
+			this.ip = "localhost";
+			gui.displayEvent("Unknown host exception: " + e);
+		}
 	}
 
 	/*
@@ -36,7 +43,7 @@ public class Server {
 			// wait for Clients to connect
 			while(isRunning) {
 				// format message saying we are waiting
-				gui.displayEvent("Server " + InetAddress.getLocalHost().getHostAddress() + " listening for clients on port " + port);
+				gui.displayEvent("Server " + ip + " listening for clients on port " + port);
 				// accept client connections
 				Socket socket = serverSocket.accept();
 				// check if server should stop
