@@ -140,7 +140,7 @@ public class Server {
 				// read Client's username
 				msgObj = (Message) sInput.readObject();
 				username = msgObj.getContent();
-				gui.displayEvent(username + " connected using (insert protocol here)");
+				gui.displayEvent(username + " connected using TCP/IP");
 			} catch (IOException e) {
 				gui.displayEvent("Exception IO: " + e);
 				return;
