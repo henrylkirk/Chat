@@ -23,6 +23,7 @@ public class Server {
 		this.gui = gui;
 		this.port = port;
 		clientList = new ArrayList<>();
+		// Try to get Server's IP address for TCP Clients
 		try {
 			this.ip = InetAddress.getLocalHost().getHostAddress();
 		} catch(UnknownHostException e) {
