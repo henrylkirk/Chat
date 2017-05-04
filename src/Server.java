@@ -140,7 +140,7 @@ public class Server {
 				// read Client's username
 				msgObj = (Message) sInput.readObject();
 				username = msgObj.getContent();
-				gui.displayEvent(username + " connected using TCP/IP");
+				broadcast(username + " connected using TCP/IP");
 			} catch (IOException e) {
 				gui.displayEvent("Exception IO: " + e);
 				return;
@@ -169,7 +169,7 @@ public class Server {
 				// find type of message
 				// if disconnect, disconnect
 				if(msgObj.getType() == Message.DISCONNECT){
-					gui.displayEvent(username + " disconnected");
+					broadcast(username + " disconnected");
 					isRunning = false;
 				} else { // normal message, so broadcast it
 					broadcast(username + ": " + message);

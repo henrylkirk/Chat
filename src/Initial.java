@@ -28,7 +28,7 @@ public class Initial extends JFrame{
 		String[] protocols = {"TCP", "UDP"};
         JComboBox<String> protocolList = new JComboBox<String>(protocols);
 		protocolList.setEditable(false);
-        JTextField inputHost = new JTextField("localhost");
+        JTextField inputHost = new JTextField();
         JTextField inputPort = new JTextField("1678");
         Object[] inputMessages = {
                 "Enter Your name:", inputName,
@@ -76,12 +76,12 @@ public class Initial extends JFrame{
         }
 		// determines what client to create using the user input and the protocol value.
 		if(this.protocol.equals("TCP")){
-			TCPClient client = new TCPClient(this.host, this.port, this.username);
+			Client client = new Client(this.host, this.port, this.username, this.protocol);
 			if(client.start()){
 				isConnected = true;
 			}
 		}else{
-			UDPClient client = new UDPClient(this.host,  this.port, this.username);
+			UDPClient client = new UDPClient(this.host,  this.port, this.username, this.protocol);
 			client.start();
 		}
 	}

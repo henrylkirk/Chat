@@ -35,8 +35,8 @@ public class UDPClientGUI extends JFrame {
                 System.exit(0);
             }
         });
-        // Add JButton to JPanel
-        jpNorth.add(jbDisconnect);
+                // Add JButton to JPanel
+                jpNorth.add(jbDisconnect);
         // Add JPanel to JFrame
         add(jpNorth,BorderLayout.NORTH);
 
@@ -84,6 +84,8 @@ public class UDPClientGUI extends JFrame {
         setSize(600, 500);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
+
+        
 	}
 	
 	// Add message to GUI's chatRoom
