@@ -32,11 +32,9 @@ public class UDPServer {
 		isRunning = true;
 		
 		try{
-			
 				ds = new DatagramSocket(null);
 				ds.setReuseAddress(true);
 				ds.bind(new InetSocketAddress(addr, port));
-				gui.displayEvent("Listening for UDP connections on: " + ds.getLocalAddress() + " " + port);
 				while(isRunning){
 					packet = new DatagramPacket(new byte[1024], 1024);
 						try{
