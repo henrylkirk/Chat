@@ -28,10 +28,10 @@ public class ClientStart extends JFrame{
         JTextField inputHost = new JTextField();
         JTextField inputPort = new JTextField("1678");
         Object[] inputMessages = {
-                "Enter Your name:", inputName,
-                "Enter host:", inputHost,
-				"Choose Protocol", protocolList,
-                "Enter Port:", inputPort
+                "Enter your name:", inputName,
+                "Enter host/IP:", inputHost,
+				"Choose protocol", protocolList,
+                "Enter port:", inputPort
         };
         int option = JOptionPane.showConfirmDialog(null, inputMessages, "Enter all your values", JOptionPane.OK_CANCEL_OPTION);
         if (option == JOptionPane.OK_OPTION){

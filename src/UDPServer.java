@@ -1,6 +1,5 @@
 import java.io.*;
 import java.net.*;
-import java.util.*;
 
 
 public class UDPServer {
@@ -10,7 +9,7 @@ public class UDPServer {
 	private boolean isRunning;
 	private DatagramSocket ds;
 	private DatagramPacket packet;
-	private InetAddress addr;
+	private InetAddress ip;
 	
 	/*
 	 * Constructor, takes a port and the ServerGUI that created it
@@ -19,7 +18,7 @@ public class UDPServer {
 		this.port = port;
 		this.gui = gui;
 		try{
-			this.addr = InetAddress.getLocalHost();
+			this.ip = InetAddress.getLocalHost();
 		}catch(Exception e){
 			System.out.println("Error getting address");
 		}
@@ -32,25 +31,23 @@ public class UDPServer {
 		isRunning = true;
 		
 		try{
-			
-				ds = new DatagramSocket(null);
-				ds.setReuseAddress(true);
-				ds.bind(new InetSocketAddress(addr, port));
-				while(isRunning){
-					packet = new DatagramPacket(new byte[1024], 1024);
-						try{
-							// Receive packet and then format message for final output.
-								ds.receive(packet);
-								String message = new String (packet.getData());
-								message = message.trim();
-								message = ("Message from: " + packet.getAddress() + " Using UDP Protocol - " + message);	
-								
-								gui.serverBroadcast(message);
-						}catch(IOException e){
-							System.out.println(e);
-						}
+            ds = new DatagramSocket(null);
+            ds.setReuseAddress(true);
+            ds.bind(new InetSocketAddress(ip, port));
+            while(isRunning){
+                packet = new DatagramPacket(new byte[1024], 1024);
+                try{
+                    // Receive packet and then format message for final output.
+                    ds.receive(packet);
+                    String message = new String (packet.getData());
+                    message = message.trim();
+                    message = ("Message from: " + packet.getAddress() + " Using UDP Protocol - " + message);
+                    gui.serverBroadcast(message);
+                }catch(IOException e){
+                    System.out.println(e);
+                }
 						
-				}
+            }
 				// try and close after while loop ends
 				try{
 					ds.close();
