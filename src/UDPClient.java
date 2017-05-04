@@ -2,10 +2,10 @@ import java.net.*;
 import java.io.*;
 
 
-public class UDPClient {
+public class UDPClient implements Client {
 	
 	private DatagramSocket dSocket;
-	private UDPClientGUI gui;
+	private ClientGUI gui;
 	// the host server, the port, and the username
 	public String host, username;
 	private int port;
@@ -18,23 +18,24 @@ public class UDPClient {
 		this.port = port;
 		this.username = username;
 	}
-
 	
 	/*
 	 * Starts the server and creates Datagram Socket so the messages can be sent.
 	 */
-	public void start() {
+	public boolean start() {
 		
-		this.gui = new UDPClientGUI(this);
+		this.gui = new ClientGUI(this);
 		
 		try { 
 			dSocket = new DatagramSocket();
 		}catch (Exception e) {
 			gui.displayMessage("Error");
+			return false;
 		}
 		
 		String msg = "Please enter your message....";
 		gui.displayMessage(msg);
+		return true;
 		
 		
 	}

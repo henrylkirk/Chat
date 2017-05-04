@@ -4,13 +4,13 @@ import java.io.*;
 /*
  * Client is run from ClientGUI
  */
-public class TCPClient  {
+public class TCPClient implements Client {
 	// to read from socket
 	private ObjectInputStream sInput;
 	// to write to socket
 	private ObjectOutputStream sOutput;
 	private Socket socket;
-	private TCPClientGUI gui;
+	private ClientGUI gui;
 	// the host server, the port, and the username
 	private String host, username;
 	private int port;
@@ -29,7 +29,7 @@ public class TCPClient  {
 	 */
 	public boolean start() {
 		// try to connect to server
-		this.gui = new TCPClientGUI(this);
+		this.gui = new ClientGUI(this);
 		try {
 			socket = new Socket(host, port);
 		} catch(Exception e) {
@@ -54,9 +54,7 @@ public class TCPClient  {
 		// success
 		return true;
 	}
-	
-	
-	
+
 	/*
 	 * Send a message to Server
 	 */

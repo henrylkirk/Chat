@@ -6,20 +6,19 @@ import java.awt.event.ActionListener;
 /*
  * ClientGUI
  */
-public class TCPClientGUI extends JFrame {
+public class ClientGUI extends JFrame {
 
 	// to hold the Username and later on the messages
 	private JTextField tfMessage;
 	// to display messages
 	private JTextArea chatRoom;
 	private boolean isConnected = true;
-	
-	private String username, protocol, host;
-	private int port;
+	private Client client;
 
 	// Constructor connection receiving a socket number
-	TCPClientGUI(TCPClient newClient) {
-		final TCPClient client = newClient;
+	ClientGUI(Client newClient) {
+        this.client = newClient;
+
         // NORTH
         // Create JButton to disconnect from server and quit program
         JPanel jpNorth = new JPanel();
@@ -34,8 +33,8 @@ public class TCPClientGUI extends JFrame {
                 System.exit(0);
             }
         });
-                // Add JButton to JPanel
-                jpNorth.add(jbDisconnect);
+        // Add JButton to JPanel
+        jpNorth.add(jbDisconnect);
         // Add JPanel to JFrame
         add(jpNorth,BorderLayout.NORTH);
 
@@ -83,8 +82,6 @@ public class TCPClientGUI extends JFrame {
         setSize(600, 500);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
-
-		
 	}
 
 	// Add message to GUI's chatRoom
@@ -96,7 +93,4 @@ public class TCPClientGUI extends JFrame {
 	public void failedToConnect() {
 		isConnected = false;
 	}
-
-	// Show dialog - get client input
-
 }
