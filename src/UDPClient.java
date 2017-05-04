@@ -59,7 +59,7 @@ public class UDPClient implements Client {
 				try{
 					// Displays message on the current users gui.
 					gui.displayMessage("Sending....");
-					gui.displayMessage("Current User: " + message);
+					gui.displayMessage(username + ": " + message);
 					dSocket.send(pack);
 				}catch(PortUnreachableException e){
 					gui.displayMessage("Exception2");

@@ -1,5 +1,5 @@
 /**
- * Created by henrykirk on 5/3/17.
+ * Defines common methods for the two client types
  */
 public interface Client {
     public void sendMessage(Message msg);
