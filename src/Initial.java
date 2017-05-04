@@ -76,12 +76,12 @@ public class Initial extends JFrame{
         }
 		// determines what client to create using the user input and the protocol value.
 		if(this.protocol.equals("TCP")){
-			Client client = new Client(this.host, this.port, this.username, this.protocol);
+			TCPClient client = new TCPClient(this.host, this.port, this.username);
 			if(client.start()){
 				isConnected = true;
 			}
 		}else{
-			UDPClient client = new UDPClient(this.host,  this.port, this.username, this.protocol);
+			UDPClient client = new UDPClient(this.host,  this.port, this.username);
 			client.start();
 		}
 	}

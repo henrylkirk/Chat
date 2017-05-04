@@ -14,11 +14,10 @@ public class UDPClient {
 	/*
 	 * Constructor
 	 */
-	UDPClient(String host, int port, String username, String protocol) {
+	UDPClient(String host, int port, String username) {
 		this.host = host;
 		this.port = port;
 		this.username = username;
-        this.protocol = protocol;
 		
 	}
 

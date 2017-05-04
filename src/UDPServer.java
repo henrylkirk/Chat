@@ -39,7 +39,6 @@ public class UDPServer {
 				gui.displayEvent("Listening for UDP connections on: " + ds.getLocalAddress() + " " + port);
 				while(isRunning){
 					packet = new DatagramPacket(new byte[1024], 1024);
-					System.out.println(isRunning);
 						try{
 							// Receive packet and then format message for final output.
 								ds.receive(packet);
