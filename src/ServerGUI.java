@@ -14,7 +14,7 @@ public class ServerGUI extends JFrame implements WindowListener, ActionListener 
 	// port number TextField
 	private JTextField tfPort;
 	private final int defaultPort = 1678;
-	private Server server = null;
+	private TCPServer server = null;
 	private UDPServer udpServer = null;
 	
 	
@@ -138,7 +138,7 @@ public class ServerGUI extends JFrame implements WindowListener, ActionListener 
             return;
         }
         // create and start new Server and new UDP Server
-        server = new Server(port, this);
+        server = new TCPServer(port, this);
 		udpServer = new UDPServer(port, this);
 		new RunUDPServer().start();
         new RunServer().start();

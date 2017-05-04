@@ -3,9 +3,9 @@ import java.net.*;
 import java.util.*;
 
 /*
- * Server
+ * TCPServer
  */
-public class Server {
+public class TCPServer {
 	// need a unique ID for each Client
 	private static int clientID;
 	// list of Clients
@@ -19,7 +19,7 @@ public class Server {
 	private String ip;
 
 	// Constructor
-	public Server(int port, ServerGUI gui) {
+	public TCPServer(int port, ServerGUI gui) {
 		this.gui = gui;
 		this.port = port;
 		clientList = new ArrayList<>();
