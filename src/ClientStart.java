@@ -25,13 +25,13 @@ public class ClientStart extends JFrame{
 		String[] protocols = {"TCP", "UDP"};
         JComboBox<String> protocolList = new JComboBox<String>(protocols);
 		protocolList.setEditable(false);
-        JTextField inputHost = new JTextField("localhost");
+        JTextField inputHost = new JTextField();
         JTextField inputPort = new JTextField("1678");
         Object[] inputMessages = {
-                "Enter your name:", inputName,
-                "Enter host/IP:", inputHost,
-				"Choose protocol", protocolList,
-                "Enter port:", inputPort
+                "Enter Your name:", inputName,
+                "Enter host:", inputHost,
+				"Choose Protocol", protocolList,
+                "Enter Port:", inputPort
         };
         int option = JOptionPane.showConfirmDialog(null, inputMessages, "Enter all your values", JOptionPane.OK_CANCEL_OPTION);
         if (option == JOptionPane.OK_OPTION){

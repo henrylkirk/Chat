@@ -32,6 +32,7 @@ public class UDPServer {
 		isRunning = true;
 		
 		try{
+			
 				ds = new DatagramSocket(null);
 				ds.setReuseAddress(true);
 				ds.bind(new InetSocketAddress(addr, port));
