@@ -28,7 +28,7 @@ public class Initial extends JFrame{
 		String[] protocols = {"TCP", "UDP"};
         JComboBox<String> protocolList = new JComboBox<String>(protocols);
 		protocolList.setEditable(false);
-        JTextField inputHost = new JTextField("localhost");
+        JTextField inputHost = new JTextField();
         JTextField inputPort = new JTextField("1678");
         Object[] inputMessages = {
                 "Enter Your name:", inputName,

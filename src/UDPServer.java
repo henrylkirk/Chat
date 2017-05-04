@@ -11,7 +11,7 @@ public class UDPServer {
 	private DatagramSocket ds;
 	private DatagramPacket packet;
 	private InetAddress addr;
-
+	
 	/*
 	 * Constructor, takes a port and the ServerGUI that created it
 	 */
@@ -19,7 +19,7 @@ public class UDPServer {
 		this.port = port;
 		this.gui = gui;
 		try{
-		this.addr = InetAddress.getLocalHost();
+			this.addr = InetAddress.getLocalHost();
 		}catch(Exception e){
 			System.out.println("Error getting address");
 		}
@@ -30,7 +30,7 @@ public class UDPServer {
 	 */
 	public void start() {
 		isRunning = true;
-
+		
 		try{
 			
 				ds = new DatagramSocket(null);
@@ -39,13 +39,13 @@ public class UDPServer {
 				gui.displayEvent("Listening for UDP connections on: " + ds.getLocalAddress() + " " + port);
 				while(isRunning){
 					packet = new DatagramPacket(new byte[1024], 1024);
-					System.out.println(isRunning);
 						try{
 							// Receive packet and then format message for final output.
 								ds.receive(packet);
 								String message = new String (packet.getData());
 								message = message.trim();
-								message = ("Message from: " + packet.getAddress() + " Using UDP Protocol - " + message);													
+								message = ("Message from: " + packet.getAddress() + " Using UDP Protocol - " + message);	
+								
 								gui.serverBroadcast(message);
 						}catch(IOException e){
 							System.out.println(e);
@@ -73,5 +73,8 @@ public class UDPServer {
 			new DatagramSocket(port);
 		} catch(Exception e) {}
 	}
+	
+	
+	
 
 }

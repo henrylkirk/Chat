@@ -7,8 +7,9 @@ public class UDPClient implements Client {
 	private DatagramSocket dSocket;
 	private ClientGUI gui;
 	// the host server, the port, and the username
-	public String host, username;
+	private String host, username;
 	private int port;
+	private String protocol;
 
 	/*
 	 * Constructor
@@ -17,6 +18,7 @@ public class UDPClient implements Client {
 		this.host = host;
 		this.port = port;
 		this.username = username;
+		
 	}
 	
 	/*
@@ -52,21 +54,41 @@ public class UDPClient implements Client {
 				byte[] data = message.getBytes();
 				InetAddress addr = InetAddress.getByName(host);
 				DatagramPacket pack = new DatagramPacket(data, data.length, addr, port);
-				System.out.println(addr + " " + port);
+				
 				
 				try{
 					// Displays message on the current users gui.
 					gui.displayMessage("Sending....");
-					gui.displayMessage(username + ": " + message);
+					gui.displayMessage("Current User: " + message);
 					dSocket.send(pack);
 				}catch(PortUnreachableException e){
 					gui.displayMessage("Exception2");
 				}
 				//if message type = disconnect, then disconnect.
 			}else if(msg.getType() == 1){
+				String message = (username + " disconnected");
+				byte[] data = message.getBytes();
+				InetAddress addr = InetAddress.getByName(host);
+				DatagramPacket pack = new DatagramPacket(data, data.length, addr, port);
+				try{
+					
+					dSocket.send(pack);
+				}catch(PortUnreachableException e){
+					gui.displayMessage("Exception2");
+				}
 				disconnect();
+			}else if (msg.getType() == 2){
+				String message = (username + " connected using UDP Protocol");
+				byte[] data = message.getBytes();
+				InetAddress addr = InetAddress.getByName(host);
+				DatagramPacket pack = new DatagramPacket(data, data.length, addr, port);
+				try{
+					
+					dSocket.send(pack);
+				}catch(PortUnreachableException e){
+					gui.displayMessage("Exception2");
+				}
 			}
-			
 		}
 		catch(IOException e) {
 			gui.displayMessage("Exception writing to server: " + e);

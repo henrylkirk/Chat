@@ -22,6 +22,7 @@ public class TCPClient implements Client {
 		this.host = host;
 		this.port = port;
 		this.username = username;
+		
 	}
 
 	/*
