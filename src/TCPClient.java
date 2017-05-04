@@ -10,7 +10,7 @@ public class TCPClient  {
 	// to write to socket
 	private ObjectOutputStream sOutput;
 	private Socket socket;
-	private ClientGUI gui;
+	private TCPClientGUI gui;
 	// the host server, the port, and the username
 	private String host, username;
 	private int port;
@@ -30,7 +30,7 @@ public class TCPClient  {
 	 */
 	public boolean start() {
 		// try to connect to server
-		this.gui = new ClientGUI(this);
+		this.gui = new TCPClientGUI(this);
 		try {
 			socket = new Socket(host, port);
 		} catch(Exception e) {
