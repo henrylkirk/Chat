@@ -77,7 +77,7 @@ public class ClientGUI extends JFrame {
         add(jpClient);
 
         // Set JFrame property
-        setTitle("Client GUI");
+        setTitle("Client");
         setLocation(380, 150);
         setSize(600, 500);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
