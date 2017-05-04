@@ -25,7 +25,7 @@ public class ClientStart extends JFrame{
 		String[] protocols = {"TCP", "UDP"};
         JComboBox<String> protocolList = new JComboBox<String>(protocols);
 		protocolList.setEditable(false);
-        JTextField inputHost = new JTextField();
+        JTextField inputHost = new JTextField("localhost");
         JTextField inputPort = new JTextField("1678");
         Object[] inputMessages = {
                 "Enter your name:", inputName,
